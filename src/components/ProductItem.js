@@ -16,7 +16,7 @@ const ProductItem = ({item}) => {
     })
 
     function addToOrder() {
-        fetch("https://localhost:7122/api/Order/AddToCart", {
+        fetch("https://marketplace-backend-i22y.onrender.com/api/Order/AddToCart", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

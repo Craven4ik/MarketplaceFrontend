@@ -6,7 +6,7 @@ const OrderItem = ({orderItem}) => {
 
     useEffect(() => {
         // setOrderItems(order.orderItems)
-        fetch(`https://localhost:7122/api/Item/GetItemById?id=${orderItem.productID}`, {
+        fetch(`https://marketplace-backend-i22y.onrender.com/api/Item/GetItemById?id=${orderItem.productID}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

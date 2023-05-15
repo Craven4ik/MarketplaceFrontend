@@ -14,7 +14,7 @@ const Product = () => {
     }
     function checkFun(e) {
         e.preventDefault()
-        fetch("https://localhost:7122/api/Authorize/CurUserId?email="+window.localStorage.getItem("OwnerEmail"), {
+        fetch("https://marketplace-backend-i22y.onrender.com/api/Authorize/CurUserId?email="+window.localStorage.getItem("OwnerEmail"), {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const Product = () => {
         if (!window.localStorage.getItem('token'))
             navigate("/")
         else {
-            fetch("https://localhost:7122/api/Item/GetItems", {
+            fetch("https://marketplace-backend-i22y.onrender.com/api/Item/GetItems", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

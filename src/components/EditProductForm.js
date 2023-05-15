@@ -17,7 +17,7 @@ const EditProductForm = () => {
 
     const updateItem = () => {
         console.log(JSON.stringify(data))
-        fetch("https://localhost:7122/api/Item/UpdateItem", {
+        fetch("https://marketplace-backend-i22y.onrender.com/api/Item/UpdateItem", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const EditProductForm = () => {
 
     const deleteItem = () => {
         console.log(id)
-        fetch("https://localhost:7122/api/Item/DeleteItem?id="+id, {
+        fetch("https://marketplace-backend-i22y.onrender.com/api/Item/DeleteItem?id="+id, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
