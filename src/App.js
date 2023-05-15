@@ -5,6 +5,7 @@ import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
 import CreateProductForm from "./components/CreateProductForm";
 import EditProductForm from "./components/EditProductForm";
+import Cart from "./components/Cart";
 
 const App = () => {
   return(
@@ -19,6 +20,7 @@ const App = () => {
                   <Route path="/main" element={<Product />} />
                   <Route path="/addItem" element={<CreateProductForm />} />
                   <Route path="/editItem" element={<EditProductForm />} />
+                  <Route path="/profile" element={<Cart />} />
               </Routes>
           </main>
           <footer>

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 
 const LoginForm = () => {
@@ -7,6 +7,12 @@ const LoginForm = () => {
         Password: "",
         UserName: ""
     })
+
+    useEffect(() => {
+        window.localStorage.setItem('token', "")
+        window.localStorage.setItem('OwnerEmail', "")
+
+    }, [])
 
     const [error, setError] = useState(false)
 
@@ -25,9 +31,8 @@ const LoginForm = () => {
         })
             .then(resp => resp.text())
             .then(data => {
-                // setRes(data)
                 fetchResponse = data
-                // console.log(data)
+                console.log(data)
             })
             .catch(err => {
                 console.log(err)
@@ -43,6 +48,21 @@ const LoginForm = () => {
                 } else {
                     window.localStorage.setItem('token', fetchResponse)
                     window.localStorage.setItem('OwnerEmail', userData.Email)
+                    fetch("https://localhost:7122/api/Authorize/CurUserId?email="+window.localStorage.getItem("OwnerEmail"), {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                        },
+                    })
+                        .then(resp => resp.text())
+                        .then(data => {
+                            window.localStorage.setItem('UserID', data)
+                            console.log(data)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
                     // console.log(window.localStorage.getItem('token'))
                     navigate("/main")
                 }

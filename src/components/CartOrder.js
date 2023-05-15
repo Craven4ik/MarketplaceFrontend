@@ -1,9 +1,13 @@
-import ProductItem from "./ProductItem";
 import OrderItem from "./OrderItem";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const CartOrder = ({order}) => {
     const [orderItems, setOrderItems] = useState([])
+
+    useEffect(() => {
+        setOrderItems(order.orderItems)
+
+    }, [])
 
     return (
         <div key={order.id}>
@@ -11,7 +15,6 @@ const CartOrder = ({order}) => {
                 ? orderItems.map(orderItem => (
                     <OrderItem key={orderItem.id} orderItem={orderItem}/>
                 )) : <></>
-
             }
         </div>
     )

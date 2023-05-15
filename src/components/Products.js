@@ -3,6 +3,7 @@ import styles from '../assets/styles.css'
 import CreateProductForm from './CreateProductForm'
 import ProductItem from './ProductItem'
 import {useNavigate} from "react-router-dom";
+import MainNav from "./MainNav";
 
 const Product = () => {
     const [items, setItems] = useState([])
@@ -13,17 +14,17 @@ const Product = () => {
     }
     function checkFun(e) {
         e.preventDefault()
-        fetch("https://localhost:7122/api/Authorize/CurrentUser", {
+        fetch("https://localhost:7122/api/Authorize/CurUserId?email="+window.localStorage.getItem("OwnerEmail"), {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': 'Bearer ' + window.localStorage.getItem('token')
             },
         })
-            .then(resp => resp.json())
+            .then(resp => resp.text())
             .then(data => {
                 // setRes(data)
-                console.log(data.claims[0].value)
+                console.log(data)
             })
             .catch(err => {
                 console.log(err)
@@ -65,7 +66,7 @@ const Product = () => {
                         items.map(item => (
                         <ProductItem key={item.id} item={item}/>
                     ))
-                        : <p>There are no items</p>
+                        : <h1 className="main-page-name">There are no items</h1>
                     }
                 </div>
                 {/*<button onClick={checkFun}>Test</button>*/}
