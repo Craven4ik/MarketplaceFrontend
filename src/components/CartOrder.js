@@ -26,7 +26,6 @@ const CartOrder = ({order, history}) => {
     function changeState() {
         let toUpdate = order
         toUpdate.state = 1
-        console.log(toUpdate)
         fetch(`https://marketplace-backend-i22y.onrender.com/api/Order/${toUpdate.id}`, {
             method: "PUT",
             headers: {
@@ -37,12 +36,10 @@ const CartOrder = ({order, history}) => {
         })
             .then(resp => resp)
             .then(data => {
-                console.log(data)
             })
             .catch(err => {
                 console.log(err)
             })
-        window.location.reload()
     }
 
     return (

@@ -50,7 +50,6 @@ const OrderItem = ({orderItem, history}) => {
             .catch(err => {
                 console.log(err)
             })
-        window.location.reload()
     }
 
     function plusCount() {
@@ -70,7 +69,6 @@ const OrderItem = ({orderItem, history}) => {
             .catch(err => {
                 console.log(err)
             })
-        window.location.reload()
     }
 
     function minusCount() {
@@ -95,7 +93,6 @@ const OrderItem = ({orderItem, history}) => {
                     console.log(err)
                 })
         }
-        window.location.reload()
     }
 
   return (
