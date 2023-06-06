@@ -47,7 +47,7 @@ const LoginForm = () => {
                     window.localStorage.setItem('token', fetchResponse)
                     window.localStorage.setItem('OwnerEmail', userData.Email)
                     window.localStorage.setItem('UserName', userData.Email.split('@')[0])
-                    fetch("https://marketplace-backend-i22y.onrender.com/User/FindUserIdByEmail?email="+window.localStorage.getItem("OwnerEmail"), {
+                    fetch("https://marketplace-backend-i22y.onrender.com/api/User/FindUserIdByEmail?email="+window.localStorage.getItem("OwnerEmail"), {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
