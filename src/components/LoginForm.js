@@ -21,7 +21,7 @@ const LoginForm = () => {
 
     function loginFun(e) {
         e.preventDefault()
-        fetch("https://localhost:7122/api/Authorize/SignIn", {
+        fetch("https://marketplace-backend-i22y.onrender.com/api/Authorize/SignIn", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -47,7 +47,7 @@ const LoginForm = () => {
                     window.localStorage.setItem('token', fetchResponse)
                     window.localStorage.setItem('OwnerEmail', userData.Email)
                     window.localStorage.setItem('UserName', userData.Email.split('@')[0])
-                    fetch("https://localhost:7122/api/Authorize/CurUserId?email="+window.localStorage.getItem("OwnerEmail"), {
+                    fetch("https://marketplace-backend-i22y.onrender.com/Authorize/CurUserId?email="+window.localStorage.getItem("OwnerEmail"), {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",

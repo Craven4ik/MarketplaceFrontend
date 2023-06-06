@@ -22,7 +22,7 @@ const CreateProductForm = () => {
 
     const createItem = () => {
         console.log(JSON.stringify(data))
-        fetch("https://localhost:7122/api/Item/CreateItem", {
+        fetch("https://marketplace-backend-i22y.onrender.com/api/Item/CreateItem", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

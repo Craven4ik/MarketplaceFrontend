@@ -10,7 +10,7 @@ const OrderHistory = () => {
         if (!window.localStorage.getItem('token'))
             navigate("/")
         else {
-            fetch("https://localhost:7122/api/Order/GetOrdersWithFilter?UserID="
+            fetch("https://marketplace-backend-i22y.onrender.com/api/Order/GetOrdersWithFilter?UserID="
                 +window.localStorage.getItem("UserID")+"&State=1", {
                 method: "GET",
                 headers: {

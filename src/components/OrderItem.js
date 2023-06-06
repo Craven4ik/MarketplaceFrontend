@@ -16,7 +16,7 @@ const OrderItem = ({orderItem, history}) => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`https://localhost:7122/api/Item/GetItemById?id=${+orderItem.productID}`, {
+        fetch(`https://marketplace-backend-i22y.onrender.com/api/Item/GetItemById?id=${+orderItem.productID}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const OrderItem = ({orderItem, history}) => {
     }, [orderItem])
 
     function deleteItem() {
-        fetch(`https://localhost:7122/api/OrderItem/${orderItem.id}`, {
+        fetch(`https://marketplace-backend-i22y.onrender.com/api/OrderItem/${orderItem.id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const OrderItem = ({orderItem, history}) => {
 
     function plusCount() {
         toUpdate.count = orderItem.count + 1
-        fetch(`https://localhost:7122/api/OrderItem/${orderItem.id}`, {
+        fetch(`https://marketplace-backend-i22y.onrender.com/api/OrderItem/${orderItem.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const OrderItem = ({orderItem, history}) => {
         }
         else {
             toUpdate.count = orderItem.count - 1
-            fetch(`https://localhost:7122/api/OrderItem/${orderItem.id}`, {
+            fetch(`https://marketplace-backend-i22y.onrender.com/api/OrderItem/${orderItem.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

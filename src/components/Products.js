@@ -14,7 +14,7 @@ const Product = () => {
         if (!window.localStorage.getItem('token'))
             navigate("/")
         else {
-            fetch("https://localhost:7122/api/Item/GetItems", {
+            fetch("https://marketplace-backend-i22y.onrender.com/api/Item/GetItems", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

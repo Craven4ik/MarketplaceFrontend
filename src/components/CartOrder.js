@@ -7,7 +7,7 @@ const CartOrder = ({order, history}) => {
 
     useEffect(() => {
         setOrderItems(order.orderItems)
-        fetch(`https://localhost:7122/api/OrderItem/GetPrice?id=${+order.id}`, {
+        fetch(`https://marketplace-backend-i22y.onrender.com/api/OrderItem/GetPrice?id=${+order.id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const CartOrder = ({order, history}) => {
         let toUpdate = order
         toUpdate.state = 1
         console.log(toUpdate)
-        fetch(`https://localhost:7122/api/Order/${toUpdate.id}`, {
+        fetch(`https://marketplace-backend-i22y.onrender.com/api/Order/${toUpdate.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

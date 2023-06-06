@@ -15,7 +15,7 @@ const RegistrationForm = () => {
 
     function registrationFun(e) {
         e.preventDefault()
-        fetch("https://localhost:7122/api/Authorize/Register", {
+        fetch("https://marketplace-backend-i22y.onrender.com/api/Authorize/Register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
