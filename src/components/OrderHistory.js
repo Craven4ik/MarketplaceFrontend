@@ -1,10 +1,9 @@
 import {useEffect, useState} from "react";
-import CartOrder from "./CartOrder";
 import {useNavigate} from "react-router-dom";
+import CartOrder from "./CartOrder";
 
-
-const Cart = () => {
-    const [orders, setOrders] = useState([])
+const OrderHistory = () => {
+    const [ordersFinished, setOrdersFinished] = useState([])
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -12,7 +11,7 @@ const Cart = () => {
             navigate("/")
         else {
             fetch("https://localhost:7122/api/Order/GetOrdersWithFilter?UserID="
-                +window.localStorage.getItem("UserID")+"&State=0", {
+                +window.localStorage.getItem("UserID")+"&State=1", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -21,27 +20,29 @@ const Cart = () => {
             })
                 .then(resp => resp.json())
                 .then(data => {
-                    setOrders(data)
+                    setOrdersFinished(data)
+                    console.log(ordersFinished)
                 })
                 .catch(err => {
                     console.log(err)
                 })
         }
+        console.log(ordersFinished)
     }, [])
 
     return (
         <div>
-            <h1 className="main-page-name">Cart</h1>
+            <h1 className="main-page-name">Order history</h1>
             <div>
-                {orders.length
-                    ? orders.map(order => (
-                        <CartOrder key={order.id} order={order} history={1}/>
+                {ordersFinished.length
+                    ? ordersFinished.map(order => (
+                        <CartOrder key={order.id} order={order}/>
                     ))
-                    : <h1 className="main-page-name">There are no orders in progress</h1>
+                    : <h1 className="main-page-name">There are no finished orders</h1>
                 }
             </div>
         </div>
     )
 }
 
-export default Cart
+export default OrderHistory

@@ -5,6 +5,8 @@ const EditProductForm = () => {
     const item = window.localStorage.getItem("CurItem")
     const id = window.localStorage.getItem("CurItemId")
     const navigate = useNavigate();
+    const [curItem, setCurItem] = useState()
+    const [loading, setLoading] = useState(true)
 
     const [data, setData] = useState({
         Id: id,
@@ -12,12 +14,14 @@ const EditProductForm = () => {
         Price: item.Price,
         Image: item.Image,
         Description: item.Description,
-        OwnerEmail: window.localStorage.getItem("OwnerEmail")
+        OwnerEmail: (window.localStorage.getItem("OwnerEmail") !== "Admin@admin.com")
+            ? window.localStorage.getItem("OwnerEmail")
+            : window.localStorage.getItem("PrevEmail")
     })
 
     const updateItem = () => {
         console.log(JSON.stringify(data))
-        fetch("https://marketplace-backend-i22y.onrender.com/api/Item/UpdateItem", {
+        fetch("https://localhost:7122/api/Item/UpdateItem", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -26,9 +30,6 @@ const EditProductForm = () => {
             body: JSON.stringify(data)
         })
             .then(resp => resp)
-            .then(data => {
-                console.log(data)
-            })
             .catch(err => {
                 console.log(err)
             })
@@ -37,7 +38,7 @@ const EditProductForm = () => {
 
     const deleteItem = () => {
         console.log(id)
-        fetch("https://marketplace-backend-i22y.onrender.com/api/Item/DeleteItem?id="+id, {
+        fetch("https://localhost:7122/api/Item/DeleteItem?id="+id, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -46,9 +47,6 @@ const EditProductForm = () => {
             body: id
         })
             .then(resp => resp)
-            .then(data => {
-                console.log(data)
-            })
             .catch(err => {
                 console.log(err)
             })
@@ -58,10 +56,31 @@ const EditProductForm = () => {
     useEffect(() => {
         if (!window.localStorage.getItem('token'))
             navigate("/")
-        console.log(data)
+        else {
+            setLoading(true)
+            fetch(`https://localhost:7122/api/Item/GetItemById?id=${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+                },
+            })
+                .then(resp => resp.json())
+                .then(data => {
+                    setCurItem(data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                .finally(() => {
+                    setLoading(false)
+                })
+        }
     }, [])
 
     return (
+        loading ? <></>
+            :
         <div>
             <h1 className="main-page-name">Item edit panel</h1>
             <div className="form-add-wrapper">
@@ -71,40 +90,40 @@ const EditProductForm = () => {
                         <label>Item name</label>
                         <input required
                                type="text"
+                               placeholder={curItem.name}
                                onChange={e => setData(prev => ({
                                    ...prev, Name: e.target.value
                                }))}
-                               value={data.Name}
                         />
                     </div>
                     <div className="form-item">
                         <label>Item price</label>
                         <input required
                                type="number"
+                               placeholder={curItem.price}
                                onChange={e => setData(prev => ({
                                    ...prev, Price: e.target.value
                                }))}
-                               value={data.Price}
                         />
                     </div>
                     <div className="form-item">
                         <label>Item image (url)</label>
                         <input required
                                type="text"
+                               placeholder={curItem.image}
                                onChange={e => setData(prev => ({
                                    ...prev, Image: e.target.value
                                }))}
-                               value={data.Image}
                         />
                     </div>
                     <div className="form-item">
                         <label>Item description</label>
                         <input required
                                type="text"
+                               placeholder={curItem.description}
                                onChange={e => setData(prev => ({
                                    ...prev, Description: e.target.value
                                }))}
-                               value={data.Description}
                         />
                     </div>
                     <div className="button-panel">

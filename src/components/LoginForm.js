@@ -11,7 +11,6 @@ const LoginForm = () => {
     useEffect(() => {
         window.localStorage.setItem('token', "")
         window.localStorage.setItem('OwnerEmail', "")
-
     }, [])
 
     const [error, setError] = useState(false)
@@ -22,7 +21,7 @@ const LoginForm = () => {
 
     function loginFun(e) {
         e.preventDefault()
-        fetch("https://marketplace-backend-i22y.onrender.com/api/Authorize/SignIn", {
+        fetch("https://localhost:7122/api/Authorize/SignIn", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -32,7 +31,6 @@ const LoginForm = () => {
             .then(resp => resp.text())
             .then(data => {
                 fetchResponse = data
-                console.log(data)
             })
             .catch(err => {
                 console.log(err)
@@ -48,7 +46,8 @@ const LoginForm = () => {
                 } else {
                     window.localStorage.setItem('token', fetchResponse)
                     window.localStorage.setItem('OwnerEmail', userData.Email)
-                    fetch("https://marketplace-backend-i22y.onrender.com/api/Authorize/CurUserId?email="+window.localStorage.getItem("OwnerEmail"), {
+                    window.localStorage.setItem('UserName', userData.Email.split('@')[0])
+                    fetch("https://localhost:7122/api/Authorize/CurUserId?email="+window.localStorage.getItem("OwnerEmail"), {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
@@ -58,12 +57,10 @@ const LoginForm = () => {
                         .then(resp => resp.text())
                         .then(data => {
                             window.localStorage.setItem('UserID', data)
-                            console.log(data)
                         })
                         .catch(err => {
                             console.log(err)
                         })
-                    // console.log(window.localStorage.getItem('token'))
                     navigate("/main")
                 }
             })

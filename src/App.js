@@ -6,6 +6,8 @@ import RegistrationForm from "./components/RegistrationForm";
 import CreateProductForm from "./components/CreateProductForm";
 import EditProductForm from "./components/EditProductForm";
 import Cart from "./components/Cart";
+import FooterComp from "./components/FooterComp";
+import OrderHistory from "./components/OrderHistory";
 
 const App = () => {
   return(
@@ -20,11 +22,12 @@ const App = () => {
                   <Route path="/main" element={<Product />} />
                   <Route path="/addItem" element={<CreateProductForm />} />
                   <Route path="/editItem" element={<EditProductForm />} />
-                  <Route path="/profile" element={<Cart />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/history" element={<OrderHistory />} />
               </Routes>
           </main>
           <footer>
-
+              <FooterComp />
           </footer>
       </div>
 )

@@ -6,17 +6,17 @@ const ProductItem = ({item}) => {
     function goToEdit() {
         window.localStorage.setItem("CurItem", item)
         window.localStorage.setItem("CurItemId", item.id)
+        window.localStorage.setItem("PrevEmail", item.ownerEmail)
         navigate("/editItem")
     }
 
     const [myData, setMyData] = useState({
         UserId: window.localStorage.getItem("UserID"),
-        // ItemId: window.localStorage.getItem("CurItemId"),
         ItemId: item.id
     })
 
     function addToOrder() {
-        fetch("https://marketplace-backend-i22y.onrender.com/api/Order/AddToCart", {
+        fetch("https://localhost:7122/api/Order/AddToCart", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -25,7 +25,6 @@ const ProductItem = ({item}) => {
         })
             .then(resp => resp.json())
             .then(data => {
-                // setItems(data)
                 console.log(data)
             })
             .catch(err => {
@@ -55,6 +54,7 @@ const ProductItem = ({item}) => {
                     </div>
                     <p><span>Seller: {item.ownerEmail}</span></p>
                     {window.localStorage.getItem("OwnerEmail") === item.ownerEmail
+                        || window.localStorage.getItem("OwnerEmail") === "Admin@admin.com"
                         ? <button onClick={goToEdit}>Edit item</button>
                         : <button onClick={addToOrder}>Add to cart</button>}
                 </div>

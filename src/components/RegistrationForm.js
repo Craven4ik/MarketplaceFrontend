@@ -9,30 +9,22 @@ const RegistrationForm = () => {
     })
 
     const navigate = useNavigate();
+    const [error, setError] = useState(false)
 
-    // function registrationFun() {
-    //     e.preventDefault()
-    //     fetch('https://localhost:7070/api/Account/GetToken')
-    //         .then(response => response.json())
-    //         .then(data => console.log(data));
-    // }
+    let fetchResponse = ""
 
     function registrationFun(e) {
         e.preventDefault()
-
-        fetch("https://marketplace-backend-i22y.onrender.com/api/Authorize/Register", {
+        fetch("https://localhost:7122/api/Authorize/Register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(userData)
         })
-            .then(resp => resp.text())
+            .then(resp => resp.json())
             .then(data => {
-                console.log(data)
-            })
-            .catch(err => {
-                console.log(err)
+                fetchResponse = data.title
             })
             .finally(() => {
                 setUserData({
@@ -40,13 +32,17 @@ const RegistrationForm = () => {
                     Email: '',
                     Password: ''
                 })
-                navigate("/")
+                if (fetchResponse === "Bad Request") {
+                    setError(true)
+                }
+                else navigate("/")
             })
     }
 
     return (
         <div className="form-wrapper">
             <h1>Registration</h1>
+            {!error ? <></> : <p className="sign-in__error-message">Пользователь с такими данными существует</p>}
             <form onSubmit={registrationFun}>
                 <div className="form-item">
                     <label>UserName</label>
